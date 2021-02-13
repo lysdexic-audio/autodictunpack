@@ -1,4 +1,4 @@
-# autodictunpack.js
+# Auto Dict Unpack.js
 Ever lose your mind trying to unpack massive dictionaries in Max8? 
 
 Try this useful little js helper tool to automagically script the arguments required to parse dictionaries in MaxMSP / Jitter
