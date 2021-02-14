@@ -10,6 +10,7 @@ outlets = 1;
 var thedictunpack;
 var d = new Dict();
 ourself = this.box; // assign a Maxobj to our js object
+var thedict;
 
 function findmydictview(object)
 {
@@ -17,7 +18,7 @@ function findmydictview(object)
 	else return true;
 }
 
-function go()
+function go(args)
 {
 	var unpackargs = [];
 	// what are the dtypes for the values in of our dict?
@@ -29,6 +30,7 @@ function go()
 		if (d.gettype(keys[i]) !== 'null') unpackargs.push(keys[i]+":");
 	}
 	
+	post(thedict);
 	// make x/y location for our new subpatcher
 	const sploc_x = thedict.rect[0];
 	const sploc_y = thedict.rect[1] + 70;
@@ -62,7 +64,7 @@ function go()
 		// slice off the colon we added before
 		unpackargs[key] = unpackargs[key].slice(0, -1);
 		valtype = d.gettype(unpackargs[key]);
-		post(d.name, 'key ', key, ":", keys[key], d.get(unpackargs[key]), valtype, '\n');
+		post(d.name, 'key ', key, ":", unpackargs[key], d.get(unpackargs[key]), valtype, '\n');
 		var nulled = false;
 		switch(valtype)
 		{
@@ -73,8 +75,9 @@ function go()
 				subpatch.subpatcher().hiddenconnect(thedictunpack, i, pattrfwds[i], 0);
 				parentvalobjs[i] = this.patcher.newdefault(dvloc_x, dvloc_y+(i*20), 'number');
 				parentvalobjs[i].varname = unpackargs[key]+'box';
-				parentvalobjs[i].rect = [parentvalobjs[i].rect[0],parentvalobjs[i].rect[1], parentvalobjs[i].rect[0] + 300, parentvalobjs[i].rect[1]];
-				parentcomments[i] = this.patcher.newdefault(dvloc_x + 300, dvloc_y+(i*20), 'comment');
+				parentvalobjs[i].rect = [parentvalobjs[i].rect[0],parentvalobjs[i].rect[1], parentvalobjs[i].rect[0] + 270, parentvalobjs[i].rect[1]];
+				parentcomments[i] = this.patcher.newdefault(dvloc_x + 270, dvloc_y+(i*20), 'comment');
+				parentcomments[i].rect = [parentcomments[i].rect[0],parentcomments[i].rect[1], parentcomments[i].rect[0] + 160, parentcomments[i].rect[1]];
 				parentcomments[i].set(unpackargs[key]);
 				break;
 			case('float'):
@@ -84,8 +87,9 @@ function go()
 				subpatch.subpatcher().hiddenconnect(thedictunpack, i, pattrfwds[i], 0);
 				parentvalobjs[i] = this.patcher.newdefault(dvloc_x, dvloc_y+(i*20), 'flonum');
 				parentvalobjs[i].varname = unpackargs[key]+'box';
-				parentvalobjs[i].rect = [parentvalobjs[i].rect[0],parentvalobjs[i].rect[1], parentvalobjs[i].rect[0] + 300, parentvalobjs[i].rect[1]];
-				parentcomments[i] = this.patcher.newdefault(dvloc_x + 300, dvloc_y+(i*20), 'comment');
+				parentvalobjs[i].rect = [parentvalobjs[i].rect[0],parentvalobjs[i].rect[1], parentvalobjs[i].rect[0] + 270, parentvalobjs[i].rect[1]];
+				parentcomments[i].rect = [parentcomments[i].rect[0],parentcomments[i].rect[1], parentcomments[i].rect[0] + 160, parentcomments[i].rect[1]];
+				parentcomments[i] = this.patcher.newdefault(dvloc_x + 270, dvloc_y+(i*20), 'comment');
 				parentcomments[i].set(unpackargs[key]);
 				break;
 			case('symbol'):
@@ -97,8 +101,9 @@ function go()
 				subpatch.subpatcher().hiddenconnect(prepend, 0, pattrfwds[i], 0);
 				parentvalobjs[i] = this.patcher.newdefault(dvloc_x, dvloc_y+(i*20), 'message');
 				parentvalobjs[i].varname = unpackargs[key]+'box';
-				parentvalobjs[i].rect = [parentvalobjs[i].rect[0],parentvalobjs[i].rect[1], parentvalobjs[i].rect[0] + 300, parentvalobjs[i].rect[1]];
-				parentcomments[i] = this.patcher.newdefault(dvloc_x + 300, dvloc_y+(i*20), 'comment');
+				parentvalobjs[i].rect = [parentvalobjs[i].rect[0],parentvalobjs[i].rect[1], parentvalobjs[i].rect[0] + 270, parentvalobjs[i].rect[1]];
+				parentcomments[i] = this.patcher.newdefault(dvloc_x + 270, dvloc_y+(i*20), 'comment');
+				parentcomments[i].rect = [parentcomments[i].rect[0],parentcomments[i].rect[1], parentcomments[i].rect[0] + 160, parentcomments[i].rect[1]];
 				parentcomments[i].set(unpackargs[key]);
 				break;
 			case('null'):
@@ -123,14 +128,17 @@ function go()
 	}
 	thedictunpack.rect = [loc_x, loc_y, (loc_x+unpackargs.length*70), loc_y]
 	this.patcher.connect(thedict, 0, subpatch, 0);
+	subpatch.subpatcher().locked = 1;  
+	thedict.message('bang');
 	
 }
 
 
 function anything()
 {
-	var thedict = ourself.patchcords.inputs[0].srcobject;
-	//var args = arrayfromargs(arguments);
+	thedict = ourself.patchcords.inputs[0].srcobject;
+	post(thedict.maxclass);
+	var args = arrayfromargs(arguments);
 	// find the object we're connected to and ensure it's a dictionary
 	if (thedict.maxclass == 'dict')
 	{
