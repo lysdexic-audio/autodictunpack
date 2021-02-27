@@ -8,5 +8,5 @@ Also checks for types (Float, Int,Symbols) and spawns the appropriate UI objects
 2. Instantiate `[js autodictunpack.js]` in any patch you're working on
 
 
-https://user-images.githubusercontent.com/43569216/109392104-630b9900-796e-11eb-9e06-ace1644c35a2.mp4
+![demo](https://user-images.githubusercontent.com/43569216/109392104-630b9900-796e-11eb-9e06-ace1644c35a2.mp4)
 
