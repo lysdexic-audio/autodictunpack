@@ -9,6 +9,8 @@ Try this useful little js helper tool to automagically script the arguments requ
   
 1. Save this script as `autodictunpack.js` in your [Search Paths](https://docs.cycling74.com/max8/vignettes/search_path)
 2. Instantiate `[js autodictunpack.js]` in any patch you're working on
+3. Connect the third outlet of a dictionary in your patch
+4. Send it the `getkeys` message
 
 ![](http://user-images.githubusercontent.com/43569216/109392287-62bfcd80-796f-11eb-94e3-869e9db1a82e.mp4)
 
