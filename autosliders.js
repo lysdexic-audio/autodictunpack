@@ -77,7 +77,8 @@ function anything()
 	
 //	if(destobj.maxclass == "route") 
 //    {
-//		post(destobj.getvalueof(0));
+		// get args from object!
+//		post(destobj.getboxattr("boxatoms"));
 //		return
 //    }
 //	post(destobj.maxclass,"not a valid object");
