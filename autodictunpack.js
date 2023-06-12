@@ -88,8 +88,8 @@ function go(args)
 				parentvalobjs[i] = this.patcher.newdefault(dvloc_x, dvloc_y+(i*20), 'flonum');
 				parentvalobjs[i].varname = unpackargs[key]+'box';
 				parentvalobjs[i].rect = [parentvalobjs[i].rect[0],parentvalobjs[i].rect[1], parentvalobjs[i].rect[0] + 270, parentvalobjs[i].rect[1]];
+		                parentcomments[i] = this.patcher.newdefault(dvloc_x + 270, dvloc_y+(i*20), 'comment');
 				parentcomments[i].rect = [parentcomments[i].rect[0],parentcomments[i].rect[1], parentcomments[i].rect[0] + 160, parentcomments[i].rect[1]];
-				parentcomments[i] = this.patcher.newdefault(dvloc_x + 270, dvloc_y+(i*20), 'comment');
 				parentcomments[i].set(unpackargs[key]);
 				break;
 			case('symbol'):
